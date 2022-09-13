@@ -13,12 +13,6 @@ pipeline {
   
   stages {
   
-    stage ('Clone') {
-      steps {
-        checkout scm
-      }
-    }
-
     stage ('Maven') {
       steps {
         withCredentials([usernamePassword(
