@@ -20,18 +20,15 @@ pipeline {
 
     stage ('Build & Tests') {
       steps {
-        sh 'mvn clean package'
-        script {
-          app = docker.build("${DOCKER_TARGET}")
-        }
+        sh "mvn spring-boot:build-image -Dspring-boot.build-image.imageName=${DOCKER_REGISTRY}/${DOCKER_TARGET}"
         junit '**/target/surefire-reports/*.xml'
+	    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
     }
 
     stage ('Analysis') {
       steps {
         jacoco()
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         script {
           def checkstyle = scanForIssues tool: [$class: 'CheckStyle'], pattern: '**/target/checkstyle-result.xml'
           publishIssues issues:[checkstyle]
@@ -46,12 +43,7 @@ pipeline {
         }
       }
       steps {
-        script {
-          docker.withRegistry("${DOCKER_REGISTRY}", "${JENKINS_DOCKER_CREDS}") {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-          }
-        }
+		sh "docker push ${DOCKER_REGISTRY}/${DOCKER_TARGET}"
       }
     }
 
