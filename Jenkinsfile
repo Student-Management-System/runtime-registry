@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    DOCKER_TARGET = 'e-learning-by-sse/infrastructure-registry-service'
+    DOCKER_TARGET = 'e-learning-by-sse/infrastructure-registry'
     DOCKER_REGISTRY = 'https://ghcr.io'
     JENKINS_DOCKER_CREDS = 'github-ssejenkins'
   }
