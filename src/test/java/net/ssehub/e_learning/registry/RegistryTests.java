@@ -1,4 +1,4 @@
-package net.ssehub.sparky.registry;
+package net.ssehub.e_learning.registry;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

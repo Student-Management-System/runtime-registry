@@ -1,4 +1,4 @@
-package net.ssehub.sparky.registry;
+package net.ssehub.sparky.e_learning.registry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
