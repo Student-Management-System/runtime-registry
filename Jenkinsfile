@@ -18,7 +18,7 @@ pipeline {
         withCredentials([usernamePassword(
           credentialsId: "${JENKINS_DOCKER_CREDS}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
         ]) {
-          sh 'mvn spring-boot:build-image \
+          sh 'mvn clean spring-boot:build-image \
               -Ddocker.registry=https://DOCKER_REGISTRY \
               -Ddocker.user=$USERNAME \
               -Ddocker.secret=$PASSWORD \
