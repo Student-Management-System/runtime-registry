@@ -19,7 +19,7 @@ pipeline {
       }
     }
 
-    stage ('Build & Tests') {
+    stage ('Maven') {
       steps {
         withCredentials([usernamePassword(
           credentialsId: "${JENKINS_DOCKER_CREDS}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
