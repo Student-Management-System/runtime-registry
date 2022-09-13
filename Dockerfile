@@ -3,5 +3,5 @@ RUN mkdir -p /opt/registry
 WORKDIR /opt/registry
 
 COPY target/*.jar registry.jar
-EXPOSE 8671
+EXPOSE 8761
 ENTRYPOINT ["java", "-jar", "registry.jar"] 
