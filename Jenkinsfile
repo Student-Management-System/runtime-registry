@@ -24,11 +24,11 @@ pipeline {
         withCredentials([usernamePassword(
           credentialsId: "${JENKINS_DOCKER_CREDS}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
         ]) {
-          sh "mvn spring-boot:build-image \
+          sh 'mvn spring-boot:build-image \
               -Ddocker.registry=https://DOCKER_REGISTRY \
-              -Ddocker.user=${USERNAME} \
-              -Ddocker.secret=${PASSWORD} \
-              -Ddocker.publish=true"
+              -Ddocker.user=$USERNAME \
+              -Ddocker.secret=$PASSWORD \
+              -Ddocker.publish=true'
         }
         junit '**/target/surefire-reports/*.xml'
         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
