@@ -21,7 +21,15 @@ pipeline {
 
     stage ('Build & Tests') {
       steps {
-        sh "mvn spring-boot:build-image -Dspring-boot.build-image.imageName=${DOCKER_IMAGE_NAME}"
+        withCredentials([usernamePassword(
+          credentialsId: "${JENKINS_DOCKER_CREDS}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
+        ]) {
+          sh "mvn spring-boot:build-image \
+              -Ddocker.registry=https://DOCKER_REGISTRY \
+              -Ddocker.user=${USERNAME} \
+              -Ddocker.secret=${PASSWORD} \
+              -Ddocker.publish=true"
+        }
         junit '**/target/surefire-reports/*.xml'
         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
@@ -37,20 +45,6 @@ pipeline {
       }
     }
 
-    stage ('Publish') {
-      when { 
-        expression {
-          currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-        }
-      }
-      steps {
-       script {
-            docker.withRegistry("https://${DOCKER_REGISTRY}", "${JENKINS_DOCKER_CREDS}") {
-            docker.image("${DOCKER_IMAGE_NAME}").push()
-          }
-        }
-      }
-    }
 
   }
 }

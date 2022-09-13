@@ -6,8 +6,8 @@
 		<version>2.7.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.ssehub.sparky</groupId>
-	<artifactId>registry</artifactId>
+	<groupId>net.ssehub.e-learning</groupId>
+	<artifactId>infrastructure-registry</artifactId>
 	<version>1.0.0</version>
 	<name>Eureka Registry</name>
 	<properties>
@@ -39,9 +39,26 @@
 	</dependencyManagement>
 
 	<build>
-	    <finalName>registry</finalName>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<image>
+							<name>ghcr.io/e-learning-by-sse/${project.artifactId}:${project.version}</name>
+							<publish>${docker.publish}</publish>
+						</image>
+						<docker>
+							<publishRegistry>
+								<username>${docker.user}</username>
+								<password>${docker.secret}</password>
+								<url>https://${docker.registry}</url>
+							</publishRegistry>
+						</docker>
+					</configuration>
+				</plugin>
+
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
