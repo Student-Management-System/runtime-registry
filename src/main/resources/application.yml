@@ -9,3 +9,20 @@ eureka:
   client:
     registerWithEureka: true
     fetchRegistry: false
+    
+management:
+   endpoints:
+      web:
+         exposure:
+            include:
+            - mappings
+            - info
+   info.env.enabled: true
+
+info:
+   application:
+      name: SSE Eureka Registry
+      description: Eureka registry for runtime service discovery. Pleases visit TODO.
+      author:
+         name: Marcel Spark
+         

@@ -3,10 +3,10 @@
 	<parent>
 		<groupId>net.ssehub.e-learning</groupId>
 		<artifactId>infrastructure-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</parent>
 	<artifactId>infrastructure-registry</artifactId>
-	<version>1.0.1</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>Eureka Registry</name>
 	
 	<properties>
@@ -17,6 +17,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -39,4 +43,19 @@
 			<url>https://maven.pkg.github.com/e-learning-by-sse/maven-packages</url>
 		</repository>
 	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
